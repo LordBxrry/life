@@ -1,0 +1,25 @@
+{
+  "version": 2,
+  "buildCommand": "npm run build",
+  "devCommand": "npm run dev",
+  "installCommand": "npm install",
+  "framework": "nextjs",
+  "regions": ["iad1"],
+  "env": {
+    "DATABASE_URL": {
+      "description": "PostgreSQL connection string"
+    },
+    "NEXT_PUBLIC_API_URL": {
+      "description": "API URL for frontend (optional, defaults to /api)",
+      "default": "/api"
+    },
+    "JWT_SECRET": {
+      "description": "JWT signing secret for authentication"
+    },
+    "FACIAL_RECOGNITION_API_KEY": {
+      "description": "API key for facial recognition service (optional)"
+    }
+  },
+  "outputDirectory": ".next",
+  "publicSource": "./public"
+}

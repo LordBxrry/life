@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy - Life</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body {
+      background: #f5f5f5;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    header {
+      background: #000;
+      padding: 12px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, .1);
+    }
+
+    header nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      list-style: none;
+      max-width: 1200px;
+      margin: 0 auto;
+      gap: 30px;
+      padding: 0 20px;
+    }
+
+    .logo {
+      color: #d4a373;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 18px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 30px;
+    }
+
+    header nav a {
+      color: #d4a373;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 14px;
+      transition: color .3s;
+    }
+
+    header nav a:hover {
+      color: #fff;
+    }
+
+    .policy-container {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 0 20px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      padding: 40px;
+    }
+
+    .policy-header {
+      margin-bottom: 40px;
+      border-bottom: 2px solid #d4a373;
+      padding-bottom: 20px;
+    }
+
+    .policy-header h1 {
+      font-size: 32px;
+      color: #333;
+      margin: 0 0 10px 0;
+    }
+
+    .policy-header p {
+      color: #666;
+      margin: 5px 0;
+      font-size: 14px;
+    }
+
+    .toc {
+      background: #f9f9f9;
+      padding: 20px;
+      border-radius: 6px;
+      margin: 30px 0;
+      border-left: 4px solid #d4a373;
+    }
+
+    .toc h3 {
+      margin-top: 0;
+      color: #333;
+    }
+
+    .toc ol {
+      margin: 0;
+      padding-left: 20px;
+    }
+
+    .toc li {
+      margin-bottom: 8px;
+    }
+
+    .toc a {
+      color: #d4a373;
+      text-decoration: none;
+    }
+
+    .toc a:hover {
+      text-decoration: underline;
+    }
+
+    h2 {
+      margin-top: 40px;
+      margin-bottom: 20px;
+      color: #222;
+      font-size: 24px;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 10px;
+    }
+
+    h3 {
+      margin-top: 25px;
+      margin-bottom: 15px;
+      color: #333;
+      font-size: 18px;
+    }
+
+    p {
+      margin-bottom: 15px;
+      color: #555;
+    }
+
+    ul, ol {
+      margin-bottom: 15px;
+      padding-left: 30px;
+    }
+
+    li {
+      margin-bottom: 8px;
+      color: #555;
+    }
+
+    strong {
+      color: #333;
+      font-weight: 600;
+    }
+
+    .highlight {
+      background: #fff3cd;
+      padding: 2px 6px;
+      border-radius: 3px;
+    }
+
+    .warning-box {
+      background: #fff3cd;
+      border: 1px solid #ffc107;
+      border-radius: 6px;
+      padding: 15px;
+      margin: 20px 0;
+    }
+
+    .info-box {
+      background: #e7f3ff;
+      border: 1px solid #b3d9ff;
+      border-radius: 6px;
+      padding: 15px;
+      margin: 20px 0;
+    }
+
+    .consent-section {
+      background: #f0f8ff;
+      border: 1px solid #b0d4ff;
+      border-radius: 6px;
+      padding: 20px;
+      margin: 30px 0;
+    }
+
+    .consent-section h3 {
+      margin-top: 0;
+      color: #0066cc;
+    }
+
+    .consent-checkbox {
+      margin: 15px 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .consent-checkbox input {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+    }
+
+    .consent-checkbox label {
+      cursor: pointer;
+      color: #555;
+    }
+
+    .btn-back {
+      display: inline-block;
+      margin-bottom: 30px;
+      padding: 10px 20px;
+      background: linear-gradient(135deg, #d4a373 0%, #8b6f47 100%);
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: all 0.3s;
+    }
+
+    .btn-back:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(212, 163, 115, 0.3);
+    }
+
+    .last-updated {
+      background: #f5f5f5;
+      padding: 15px;
+      border-radius: 6px;
+      margin: 30px 0;
+      font-size: 14px;
+      color: #666;
+    }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+
+    .data-table th {
+      background: #f5f5f5;
+      border: 1px solid #ddd;
+      padding: 12px;
+      text-align: left;
+      font-weight: 600;
+      color: #333;
+    }
+
+    .data-table td {
+      border: 1px solid #ddd;
+      padding: 12px;
+    }
+
+    .data-table tr:nth-child(even) {
+      background: #fafafa;
+    }
+
+    @media (max-width: 768px) {
+      .policy-container {
+        padding: 20px;
+      }
+
+      .policy-header h1 {
+        font-size: 24px;
+      }
+
+      h2 {
+        font-size: 20px;
+      }
+
+      h3 {
+        font-size: 16px;
+      }
+
+      .data-table {
+        font-size: 13px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="index.html" class="logo"><i class="fas fa-leaf"></i> Life</a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="shop.html">Shop</a>
+        <a href="profile.html">Profile</a>
+        <a href="settings.html">Settings</a>
+      </div>
+    </nav>
+  </header>
+
+  <div class="policy-container">
+    <a href="settings.html" class="btn-back"><i class="fas fa-arrow-left"></i> Back to Settings</a>
+
+    <div class="policy-header">
+      <h1><i class="fas fa-shield-alt"></i> Privacy Policy</h1>
+      <p><strong>Effective Date:</strong> April 1, 2026</p>
+      <p><strong>Last Updated:</strong> April 1, 2026</p>
+      <p><strong>Service:</strong> Life Application</p>
+    </div>
+
+    <div class="warning-box">
+      <strong><i class="fas fa-exclamation-triangle"></i> Important Privacy Notice</strong><br>
+      This Privacy Policy explains how Life collects, uses, and protects your personal information, including biometric data from facial recognition features.
+    </div>
+
+    <div class="toc">
+      <h3>Quick Navigation</h3>
+      <ol>
+        <li><a href="#information-collect">Information We Collect</a></li>
+        <li><a href="#how-we-use">How We Use Information</a></li>
+        <li><a href="#ai-ml">Artificial Intelligence and Machine Learning</a></li>
+        <li><a href="#commercial-use">Commercial Use</a></li>
+        <li><a href="#biometric-data">Biometric Data (Facial Recognition)</a></li>
+        <li><a href="#data-sharing">Data Sharing</a></li>
+        <li><a href="#data-retention">Data Retention</a></li>
+        <li><a href="#your-rights">Your Rights</a></li>
+        <li><a href="#security">Security</a></li>
+        <li><a href="#children">Children</a></li>
+        <li><a href="#international">International Transfers</a></li>
+        <li><a href="#updates">Policy Updates</a></li>
+      </ol>
+    </div>
+
+    <!-- PRIVACY POLICY CONTENT -->
+    <h2 id="information-collect">1. Information We Collect</h2>
+
+    <h3>Information You Provide</h3>
+    <ul>
+      <li><strong>Account Information:</strong> Name, email, password, profile picture, bio, location</li>
+      <li><strong>User Content:</strong> Posts, messages, products, reviews, comments</li>
+      <li><strong>Communication:</strong> Messages, support requests, feedback</li>
+      <li><strong>Biometric Data:</strong> Facial descriptors (if facial recognition enabled)</li>
+      <li><strong>Payment Information:</strong> If applicable, processed securely by third parties</li>
+    </ul>
+
+    <h3>Information Automatically Collected</h3>
+    <ul>
+      <li><strong>Device Information:</strong> Device type, OS, browser, unique identifiers</li>
+      <li><strong>Usage Data:</strong> Pages visited, time spent, features used, clicks</li>
+      <li><strong>Location Data:</strong> IP address, approximate location (with consent)</li>
+      <li><strong>Log Data:</strong> Access times, error information, referral URLs</li>
+      <li><strong>Cookies and Tracking:</strong> Session data, preferences, analytics</li>
+    </ul>
+
+    <h3>Derived Data</h3>
+    <ul>
+      <li>User preferences and behavior patterns</li>
+      <li>Engagement metrics and recommendations</li>
+      <li>Aggregated insights and trends</li>
+      <li>De-identified usage statistics</li>
+    </ul>
+
+    <h2 id="how-we-use">2. How We Use Information</h2>
+    <p>Life uses collected information to:</p>
+    <ul>
+      <li><strong>Operate the Service:</strong> Create accounts, process transactions, provide support</li>
+      <li><strong>Improve Experience:</strong> Personalize content, recommendations, features</li>
+      <li><strong>Maintain Security:</strong> Detect fraud, prevent abuse, enforce policies</li>
+      <li><strong>Develop Features:</strong> Research, analytics, product improvement</li>
+      <li><strong>Legal Compliance:</strong> Comply with laws, respond to requests, enforce agreements</li>
+      <li><strong>Marketing:</strong> Send promotions, updates (with consent)</li>
+      <li><strong>Analytics:</strong> Understand usage patterns, improve service quality</li>
+    </ul>
+
+    <h2 id="ai-ml">3. Artificial Intelligence and Machine Learning</h2>
+    <p>Life may use User Content to train and improve AI and machine learning systems:</p>
+    <ul>
+      <li><strong>Feature Improvement:</strong> Enhance recommendations, search, personalization</li>
+      <li><strong>AI Training:</strong> Develop new AI capabilities and models</li>
+      <li><strong>Data Retention:</strong> Aggregated or de-identified data retained indefinitely</li>
+      <li><strong>Private Content:</strong> Private or restricted content only used if disclosed</li>
+    </ul>
+
+    <div class="info-box">
+      <strong>AI Transparency:</strong> Life is building features powered by AI and machine learning. Your content may be used to improve these systems. You can opt-out through your privacy settings if applicable.
+    </div>
+
+    <h2 id="commercial-use">4. Commercial Use</h2>
+    <p>Life may use your data and content for:</p>
+    <ul>
+      <li>Improving algorithms and recommendations</li>
+      <li>Developing new products and services</li>
+      <li>Promoting the platform and features</li>
+      <li>Internal research and analytics</li>
+    </ul>
+    <p><strong>Important:</strong> Life does <span class="highlight">NOT sell identifiable content as standalone media</span> without separate consent. Aggregated, anonymized, or de-identified data may be used and shared freely.</p>
+
+    <h2 id="biometric-data">5. Biometric Data (Facial Recognition)</h2>
+    
+    <h3>What We Collect</h3>
+    <p>If you enable facial recognition, Life collects:</p>
+    <ul>
+      <li>Facial geometry and characteristics (128-dimensional descriptor)</li>
+      <li>No actual images are stored - only mathematical descriptors</li>
+      <li>Data is encrypted and securely stored</li>
+    </ul>
+
+    <h3>How We Use It</h3>
+    <ul>
+      <li>Authentication and login verification</li>
+      <li>Personalization and feature enhancement</li>
+      <li>Improving system accuracy and performance</li>
+    </ul>
+
+    <h3>Protection and Rights</h3>
+    <ul>
+      <li><strong>Consent Required:</strong> Explicit opt-in through visual confirmation</li>
+      <li><strong>Not Sold:</strong> Biometric identifiers are never sold</li>
+      <li><strong>Delete Anytime:</strong> You can permanently delete biometric data</li>
+      <li><strong>No Image Storage:</strong> Only mathematical descriptors retained</li>
+      <li><strong>Secure Processing:</strong> All biometric data encrypted in transit and at rest</li>
+    </ul>
+
+    <div class="warning-box">
+      <strong><i class="fas fa-lock"></i> Biometric Privacy Rights</strong><br>
+      You have the right to access, delete, or disable facial recognition at any time. Your biometric data is your property and will not be used without your explicit consent.
+    </div>
+
+    <h2 id="data-sharing">6. Data Sharing</h2>
+    <p>Life may share data with:</p>
+    <ul>
+      <li><strong>Service Providers:</strong> Hosting, analytics, support (under confidentiality)</li>
+      <li><strong>Business Partners:</strong> For specific features or integrations (as disclosed)</li>
+      <li><strong>Legal Compliance:</strong> Law enforcement, court orders (as required)</li>
+      <li><strong>Business Transfer:</strong> In case of merger, acquisition, bankruptcy</li>
+      <li><strong>Aggregated Data:</strong> De-identified or anonymized data shared freely</li>
+    </ul>
+    <p><strong>No Sale of Personal Data:</strong> Life does not sell personal information to third parties for marketing purposes.</p>
+
+    <h2 id="data-retention">7. Data Retention</h2>
+    
+    <table class="data-table">
+      <tr>
+        <th>Data Type</th>
+        <th>Retention Period</th>
+        <th>Notes</th>
+      </tr>
+      <tr>
+        <td>Active Account Data</td>
+        <td>While account active</td>
+        <td>Deleted when account closed</td>
+      </tr>
+      <tr>
+        <td>User Content (Posts, Messages)</td>
+        <td>Until deleted by user</td>
+        <td>Backups may persist briefly</td>
+      </tr>
+      <tr>
+        <td>Biometric Data</td>
+        <td>Until disabled/deleted</td>
+        <td>Permanently removed on deletion</td>
+      </tr>
+      <tr>
+        <td>Usage/Analytics</td>
+        <td>12-24 months</td>
+        <td>Aggregated data retained longer</td>
+      </tr>
+      <tr>
+        <td>Anonymized/De-identified Data</td>
+        <td>Indefinitely</td>
+        <td>Cannot be used to identify you</td>
+      </tr>
+      <tr>
+        <td>AI Training Data</td>
+        <td>Indefinitely</td>
+        <td>As aggregated/anonymized only</td>
+      </tr>
+    </table>
+
+    <h2 id="your-rights">8. Your Rights</h2>
+    <p>Depending on your location, you may have rights to:</p>
+    <ul>
+      <li><strong>Access:</strong> Request a copy of your personal data</li>
+      <li><strong>Delete:</strong> Request deletion of your data (right to be forgotten)</li>
+      <li><strong>Correct:</strong> Request correction of inaccurate data</li>
+      <li><strong>Port:</strong> Request your data in portable format</li>
+      <li><strong>Opt-Out:</strong> Withdraw consent for biometric or marketing uses</li>
+      <li><strong>Restrict:</strong> Limit use of your data for specific purposes</li>
+    </ul>
+
+    <p><strong>To Exercise Your Rights:</strong> Contact privacy@life-app.local with your request.</p>
+
+    <h2 id="security">9. Security</h2>
+    <p>Life implements security measures to protect your information:</p>
+    <ul>
+      <li>Encryption of data in transit (SSL/TLS) and at rest</li>
+      <li>Secure biometric data storage with hashing</li>
+      <li>Access controls and authentication</li>
+      <li>Regular security audits</li>
+      <li>Incident response procedures</li>
+    </ul>
+    <p><strong>Disclaimer:</strong> While we implement safeguards, <span class="highlight">no system is 100% secure</span>. We cannot guarantee absolute protection.</p>
+
+    <h2 id="children">10. Children</h2>
+    <p>Life is <strong>not intended for children under 13</strong>. We do not knowingly collect data from children. If we become aware of data from a child, we will delete it promptly.</p>
+
+    <h2 id="international">11. International Data Transfers</h2>
+    <p>Your data may be processed in the United States or other countries where Life operates. By using Life, you consent to such transfers.</p>
+
+    <h2 id="updates">12. Policy Updates</h2>
+    <p>Life may update this Privacy Policy at any time. Changes are effective immediately upon posting. <strong>Continued use constitutes acceptance</strong> of updated policies.</p>
+
+    <div class="consent-section">
+      <h3><i class="fas fa-lock"></i> Privacy Acknowledgment</h3>
+      <p>By using Life, you acknowledge that you have read and understood this Privacy Policy.</p>
+      <div class="consent-checkbox">
+        <input type="checkbox" id="privacyAgree">
+        <label for="privacyAgree">I have read and understand the Privacy Policy</label>
+      </div>
+    </div>
+
+    <div class="last-updated">
+      <strong><i class="fas fa-envelope"></i> Contact & Questions</strong><br>
+      Email: privacy@life-app.local<br>
+      Support: support@life-app.local<br>
+      Last Updated: April 1, 2026
+    </div>
+
+    <a href="settings.html" class="btn-back"><i class="fas fa-arrow-left"></i> Back to Settings</a>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const privacyCheckbox = document.getElementById('privacyAgree');
+      if (privacyCheckbox) {
+        privacyCheckbox.addEventListener('change', (e) => {
+          localStorage.setItem('privacyAgreed', e.target.checked);
+        });
+        privacyCheckbox.checked = localStorage.getItem('privacyAgreed') === 'true';
+      }
+    });
+  </script>
+</body>
+</html>

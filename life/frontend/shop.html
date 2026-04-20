@@ -1,0 +1,1201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop - Life</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .shop-header {
+            background: linear-gradient(135deg, #d4a373 0%, #8b6f47 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .shop-header h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .shop-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .filters {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .filter-label {
+            font-weight: 600;
+            color: #333;
+            font-size: 13px;
+        }
+
+        .filter-options {
+            display: flex;
+            gap: 8px;
+        }
+
+        .filter-btn {
+            padding: 6px 12px;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.3s;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: #d4a373;
+            color: white;
+            border-color: #d4a373;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(212, 163, 115, 0.2);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #f0e0d8 0%, #e8d4c4 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            color: #d4a373;
+        }
+
+        .product-info {
+            padding: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-name {
+            font-weight: 600;
+            color: #333;
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        .product-description {
+            color: #666;
+            font-size: 13px;
+            margin-bottom: 12px;
+            line-height: 1.4;
+            flex: 1;
+        }
+
+        .product-rating {
+            color: #d4a373;
+            font-size: 12px;
+            margin-bottom: 12px;
+        }
+
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #eee;
+            padding-top: 12px;
+        }
+
+        .product-price {
+            font-weight: 700;
+            font-size: 18px;
+            color: #d4a373;
+        }
+
+        .product-btn {
+            padding: 8px 16px;
+            background: linear-gradient(135deg, #d4a373 0%, #8b6f47 100%);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .product-btn:hover {
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 768px) {
+            .filters {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html" class="logo"><i class="fas fa-leaf"></i> Life</a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="shop.html">Shop</a>
+                <a href="profile.html">Profile</a>
+                <a href="settings.html">Settings</a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="shop-header">
+        <h1>Shop</h1>
+        <p>Discover curated products and services for your lifestyle</p>
+    </div>
+
+    <div class="shop-container">
+        <div class="filters">
+            <div class="filter-group">
+                <span class="filter-label">Category:</span>
+                <div class="filter-options">
+                    <button class="filter-btn active" onclick="filterProducts('all')">All</button>
+                    <button class="filter-btn" onclick="filterProducts('services')">Services</button>
+                    <button class="filter-btn" onclick="filterProducts('products')">Products</button>
+                    <button class="filter-btn" onclick="filterProducts('experiences')">Experiences</button>
+                </div>
+            </div>
+            <div class="filter-group">
+                <span class="filter-label">Price:</span>
+                <div class="filter-options">
+                    <button class="filter-btn" onclick="filterProducts('price-low')">Under $50</button>
+                    <button class="filter-btn" onclick="filterProducts('price-mid')">$50-$200</button>
+                    <button class="filter-btn" onclick="filterProducts('price-high')">$200+</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="products-grid" id="productsGrid">
+            <div class="product-card">
+                <div class="product-image"><i class="fas fa-music"></i></div>
+                <div class="product-info">
+                    <div class="product-name">Music Studio Time</div>
+                    <div class="product-description">Professional recording studio with full equipment and engineer support.</div>
+                    <div class="product-rating">★★★★★ (148 reviews)</div>
+                    <div class="product-footer">
+                        <span class="product-price">$49/hr</span>
+                        <button class="product-btn" onclick="App.addNotification('Added to cart!', 'success')">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image"><i class="fas fa-broom"></i></div>
+                <div class="product-info">
+                    <div class="product-name">House Cleaning</div>
+                    <div class="product-description">Professional cleaning services for homes and apartments of all sizes.</div>
+                    <div class="product-rating">★★★★★ (256 reviews)</div>
+                    <div class="product-footer">
+                        <span class="product-price">$35/hr</span>
+                        <button class="product-btn" onclick="App.addNotification('Added to cart!', 'success')">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image"><i class="fas fa-home"></i></div>
+                <div class="product-info">
+                    <div class="product-name">Move-Out Cleanout</div>
+                    <div class="product-description">Complete property cleanout and junk removal service.</div>
+                    <div class="product-rating">★★★★☆ (89 reviews)</div>
+                    <div class="product-footer">
+                        <span class="product-price">$150/job</span>
+                        <button class="product-btn" onclick="App.addNotification('Added to cart!', 'success')">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image"><i class="fas fa-paint-brush"></i></div>
+                <div class="product-info">
+                    <div class="product-name">Art Classes</div>
+                    <div class="product-description">Learn painting, drawing, and digital art from experienced instructors.</div>
+                    <div class="product-rating">★★★★★ (167 reviews)</div>
+                    <div class="product-footer">
+                        <span class="product-price">$120/class</span>
+                        <button class="product-btn" onclick="App.addNotification('Added to cart!', 'success')">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image"><i class="fas fa-dumbbell"></i></div>
+                <div class="product-info">
+                    <div class="product-name">Personal Training</div>
+                    <div class="product-description">Customized fitness programs with certified personal trainers.</div>
+                    <div class="product-rating">★★★★★ (203 reviews)</div>
+                    <div class="product-footer">
+                        <span class="product-price">$60/session</span>
+                        <button class="product-btn" onclick="App.addNotification('Added to cart!', 'success')">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image"><i class="fas fa-laptop"></i></div>
+                <div class="product-info">
+                    <div class="product-name">Tech Consultation</div>
+                    <div class="product-description">Expert advice on technology, setup, and troubleshooting services.</div>
+                    <div class="product-rating">★★★★☆ (134 reviews)</div>
+                    <div class="product-footer">
+                        <span class="product-price">$40/hr</span>
+                        <button class="product-btn" onclick="App.addNotification('Added to cart!', 'success')">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+        function filterProducts(category) {
+            App.addNotification(`Filtered by: ${category}`, 'info');
+        }
+    </script>
+</body>
+</html>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #f5f5f5;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial,
+                sans-serif;
+        }
+        header {
+            background: #000;
+            padding: 12px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 1px 3px rgba(0,0,0,.1);
+        }
+        header nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            list-style: none;
+            max-width: 1200px;
+            margin: 0 auto;
+            gap: 30px;
+            padding: 0 20px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        header nav a {
+            color: #d4a373;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+            padding: 12px 0;
+            transition: color .3s;
+            border-bottom: 2px solid transparent;
+        }
+        header nav a:hover,
+        header nav a.active {
+            color: #fff;
+            border-bottom-color: #d4a373;
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-info {
+            color: #d4a373;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-logout, .btn-auth {
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 13px;
+            transition: all 0.3s;
+        }
+
+        .btn-logout {
+            background: #555;
+            color: #fff;
+        }
+
+        .btn-logout:hover {
+            background: #d4a373;
+        }
+
+        .btn-auth {
+            background: linear-gradient(135deg, #d4a373 0%, #8b6f47 100%);
+            color: #fff;
+        }
+
+        .btn-auth:hover {
+            transform: scale(1.05);
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            max-width: 450px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            font-size: 20px;
+            color: #333;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: #999;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-close:hover {
+            color: #333;
+        }
+
+        .modal-content form {
+            padding: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #333;
+            font-size: 13px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 13px;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #d4a373;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #d4a373 0%, #8b6f47 100%);
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(212, 163, 115, 0.3);
+        }
+
+        .form-toggle {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 13px;
+            color: #666;
+        }
+
+        .toggle-link {
+            color: #d4a373;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .toggle-link:hover {
+            color: #8b6f47;
+        }
+
+        .social-divider {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+            gap: 12px;
+            padding: 0 20px;
+        }
+
+        .social-divider span {
+            color: #999;
+            font-size: 13px;
+        }
+
+        .social-divider::before,
+        .social-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #ddd;
+        }
+
+        .social-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding: 0 20px;
+        }
+
+        .btn-social {
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            background: white;
+            color: #333;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-social:hover {
+            border-color: #d4a373;
+            color: #d4a373;
+        }
+        
+        .shop-container {
+            display: flex;
+            gap: 20px;
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+        
+        .sidebar {
+            width: 200px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,.1);
+            padding: 20px;
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+        
+        .sidebar-title {
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 16px;
+            font-size: 16px;
+        }
+        
+        .category-list {
+            list-style: none;
+        }
+        
+        .category-item {
+            margin-bottom: 10px;
+        }
+        
+        .category-btn {
+            width: 100%;
+            padding: 10px 12px;
+            background: #f5f5f5;
+            border: 2px solid transparent;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            color: #555;
+            font-weight: 500;
+            transition: all 0.3s;
+            text-align: left;
+        }
+        
+        .category-btn:hover {
+            background: #efefef;
+            color: #d4a373;
+        }
+        
+        .category-btn.active {
+            background: linear-gradient(135deg, #d4a373 0%, #8b6f47 100%);
+            color: #fff;
+            border-color: #d4a373;
+        }
+        
+        .main-content {
+            flex: 1;
+        }
+        
+        .main {
+            max-width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill,minmax(220px,1fr));
+            gap: 20px;
+        }
+        
+        .product {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s;
+        }
+        
+        .product.hidden {
+            display: none;
+        }
+        
+        .product:hover {
+            transform: translateY(-4px);
+        }
+        
+        @media (max-width: 768px) {
+            .shop-container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                position: static;
+            }
+            
+            .category-list {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+            
+            .category-item {
+                margin-bottom: 0;
+                flex: 1;
+                min-width: 120px;
+            }
+        }
+
+        .product img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            background: #eee;
+        }
+        .product-info {
+            padding: 16px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .product-info h3 {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        .product-info .price {
+            font-weight: 700;
+            color: #d4a373;
+            margin-bottom: 12px;
+        }
+        .btn {
+            padding: 10px;
+            border: none;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background .3s, transform .2s;
+        }
+        .btn-buy {
+            background: linear-gradient(135deg,#d4a373 0%,#8b6f47 100%);
+            color: #fff;
+        }
+        .btn-buy:hover {
+            transform: scale(1.05);
+        }
+        .btn-donate {
+            background: #fff;
+            color: #d4a373;
+            border: 2px solid #d4a373;
+        }
+        .btn-donate:hover {
+            background: #fdfaf5;
+        }
+        
+        @media (max-width:640px) {
+            header nav {
+                gap: 15px;
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="profile.html">Profile</a>
+                <a href="about.html">About</a>
+                <a href="shop.html" class="active">Shop</a>
+                <a href="https://donate.stripe.com/7sIbMv2RY0ql02Q001">Donate</a>
+                <a href="settings.html">Settings</a>
+            </div>
+            <div class="user-menu">
+                <div class="user-info" id="userDisplay" style="display: none;">Welcome, <span id="currentUser"></span></div>
+                <div class="auth-buttons" id="authButtons">
+                    <button class="btn-auth" onclick="openLoginModal()">Login</button>
+                    <button class="btn-auth" onclick="openSignupModal()">Sign Up</button>
+                </div>
+                <button class="btn-logout" id="logoutBtn" onclick="logout()" style="display: none;">Logout</button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Login Modal -->
+    <div class="modal-overlay" id="loginModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Login</h2>
+                <button class="modal-close" onclick="closeLoginModal()">×</button>
+            </div>
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" required>
+                </div>
+                <button type="submit" class="btn-submit">Login</button>
+                <div class="form-toggle">
+                    <span>Don't have an account?</span>
+                    <span class="toggle-link" onclick="switchToSignup()">Sign Up</span>
+                </div>
+            </form>
+
+            <div class="social-divider">
+                <span>Or login with</span>
+            </div>
+
+            <div class="social-buttons">
+                <button type="button" class="btn-social facebook" onclick="socialLogin('facebook')">
+                    <i class="fab fa-facebook-f"></i> Facebook
+                </button>
+                <button type="button" class="btn-social twitter" onclick="socialLogin('twitter')">
+                    <i class="fab fa-twitter"></i> Twitter
+                </button>
+                <button type="button" class="btn-social instagram" onclick="socialLogin('instagram')">
+                    <i class="fab fa-instagram"></i> Instagram
+                </button>
+                <button type="button" class="btn-social tiktok" onclick="socialLogin('tiktok')">
+                    <i class="fab fa-tiktok"></i> TikTok
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sign Up Modal -->
+    <div class="modal-overlay" id="signupModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Create Account</h2>
+                <button class="modal-close" onclick="closeSignupModal()">×</button>
+            </div>
+            <form id="signupForm" onsubmit="handleSignup(event)">
+                <div class="form-group">
+                    <label for="signupName">Full Name</label>
+                    <input type="text" id="signupName" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupUsername">Username</label>
+                    <input type="text" id="signupUsername" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupEmail">Email</label>
+                    <input type="email" id="signupEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupBio">Bio (Optional)</label>
+                    <textarea id="signupBio" placeholder="Tell us about yourself..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="signupPassword">Password</label>
+                    <input type="password" id="signupPassword" required>
+                </div>
+                <button type="submit" class="btn-submit">Create Account</button>
+                <div class="form-toggle">
+                    <span>Already have an account?</span>
+                    <span class="toggle-link" onclick="switchToLogin()">Login</span>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="shop-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-title">Categories</div>
+            <ul class="category-list">
+                <li class="category-item">
+                    <button class="category-btn active" onclick="filterByCategory('all')">All Products</button>
+                </li>
+                <li class="category-item">
+                    <button class="category-btn" onclick="filterByCategory('services')">Services</button>
+                </li>
+                <li class="category-item">
+                    <button class="category-btn" onclick="filterByCategory('clothing')">Clothing</button>
+                </li>
+                <li class="category-item">
+                    <button class="category-btn" onclick="filterByCategory('maintenance')">Maintenance</button>
+                </li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="main">
+                <h1 style="margin-bottom:20px;color:#333;">Our Products</h1>
+                <div class="product-grid" id="productGrid">
+            <div class="product" data-category="services">
+                <img src="https://t3.ftcdn.net/jpg/18/90/63/04/360_F_1890630459_ISAPHswy1yQArijCpqPumGlS7St06Hgo.jpg" alt="Cleanout">
+                <div class="product-info">
+                    <div>
+                        <h3>Cleanout</h3>
+                        <div class="price">Call for Quote</div>
+                    </div>
+                    <button class="btn btn-buy" type="button" onclick="openCalendly()">Book Now</button>
+                </div>
+            </div>
+            <div class="product" data-category="services">
+                <img src="https://img.freepik.com/free-vector/cleaners-with-cleaning-products-housekeeping-service_18591-52068.jpg?semt=ais_rp_progressive&w=740&q=80" alt="House Cleaning">
+                <div class="product-info">
+                    <div>
+                        <h3>House cleaning</h3>
+                        <div class="price">$35/hour</div>
+                    </div>
+                    <button class="btn btn-buy" type="button" onclick="openCalendly()">Book Now</button>
+                </div>
+            </div>
+            <div class="product" data-category="services">
+                <img src="https://static.vecteezy.com/system/resources/thumbnails/002/394/822/small/project-studio-isometric-composition-illustration-vector.jpg" alt="Music studio">
+                <div class="product-info">
+                    <div>
+                        <h3>Music Studio</h3>
+                        <div class="price">$49.99/hour</div>
+                    </div>
+                    <button class="btn btn-buy" type="button" onclick="openCalendly()">Book Now</button>
+                </div>
+            </div>
+            <div class="product" data-category="services">
+                <img src="https://images.pexels.com/photos/1287568/pexels-photo-1287568.jpeg?auto=compress&cs=tinysrgb&w=740" alt="Dog care">
+                <div class="product-info">
+                    <div>
+                        <h3>Dog Care</h3>
+                        <div class="price">$25/hour</div>
+                    </div>
+                    <button class="btn btn-buy" type="button" onclick="openCalendly()">Book Now</button>
+                </div>
+            </div>
+            <div class="product" data-category="services">
+                <img src="https://images.pexels.com/photos/3783517/pexels-photo-3783517.jpeg?auto=compress&cs=tinysrgb&w=740" alt="Landscaping">
+                <div class="product-info">
+                    <div>
+                        <h3>Landscaping Services</h3>
+                        <div class="price">$45/hour</div>
+                    </div>
+                    <button class="btn btn-buy" type="button" onclick="openCalendly()">Book Now</button>
+                </div>
+            </div>
+            <div class="product" data-category="clothing">
+                <img src="https://images.pexels.com/photos/3962286/pexels-photo-3962286.jpeg?auto=compress&cs=tinysrgb&w=740" alt="Seamstress">
+                <div class="product-info">
+                    <div>
+                        <h3>Seamstress Services</h3>
+                        <div class="price">$30/hour</div>
+                    </div>
+                    <button class="btn btn-buy" type="button" onclick="openCalendly()">Book Now</button>
+                </div>
+            </div>
+            <div class="product" data-category="clothing">
+                <img src="https://images.pexels.com/photos/5632399/pexels-photo-5632399.jpeg?auto=compress&cs=tinysrgb&w=740" alt="Tailor">
+                <div class="product-info">
+                    <div>
+                        <h3>Tailor Services</h3>
+                        <div class="price">$40/hour</div>
+                    </div>
+                    <button class="btn btn-buy" type="button" onclick="openCalendly()">Book Now</button>
+                </div>
+            </div>
+            <div class="product" data-category="clothing">
+                <img src="https://images.pexels.com/photos/1536619/pexels-photo-1536619.jpeg?auto=compress&cs=tinysrgb&w=740" alt="Designer Jacket">
+                <div class="product-info">
+                    <div>
+                        <h3>Designer Jacket</h3>
+                        <div class="price">$89.99</div>
+                    </div>
+                    <button class="btn btn-buy" type="button" onclick="addToCart('Designer Jacket', 89.99)">Add to Cart</button>
+                </div>
+            </div>
+            <div class="product" data-category="clothing">
+                <img src="https://images.pexels.com/photos/1464207/pexels-photo-1464207.jpeg?auto=compress&cs=tinysrgb&w=740" alt="Premium Jeans">
+                <div class="product-info">
+                    <div>
+                        <h3>Premium Jeans</h3>
+                        <div class="price">$59.99</div>
+                    </div>
+                    <button class="btn btn-buy" type="button" onclick="addToCart('Premium Jeans', 59.99)">Add to Cart</button>
+                </div>
+            </div>
+            <div class="product" data-category="clothing">
+                <img src="https://images.pexels.com/photos/2769274/pexels-photo-2769274.jpeg?auto=compress&cs=tinysrgb&w=740" alt="Exclusive Dress">
+                <div class="product-info">
+                    <div>
+                        <h3>Exclusive Dress</h3>
+                        <div class="price">$119.99</div>
+                    </div>
+                    <button class="btn btn-buy" type="button" onclick="addToCart('Exclusive Dress', 119.99)">Add to Cart</button>
+                </div>
+            </div>
+            <div class="product" data-category="maintenance">
+                <img src="https://images.pexels.com/photos/1149831/pexels-photo-1149831.jpeg?auto=compress&cs=tinysrgb&w=740" alt="Car cosmetics">
+                <div class="product-info">
+                    <div>
+                        <h3>Car Cosmetics</h3>
+                        <div class="price">$79.99</div>
+                    </div>
+                    <button class="btn btn-buy" type="button" onclick="openCalendly()">Book Now</button>
+                </div>
+            </div>
+            <div class="product" data-category="maintenance">
+                <img src="https://images.pexels.com/photos/3407857/pexels-photo-3407857.jpeg?auto=compress&cs=tinysrgb&w=740" alt="Shoe Restoration">
+                <div class="product-info">
+                    <div>
+                        <h3>Shoe Restoration</h3>
+                        <div class="price">Call for Quote</div>
+                    </div>
+                    <button class="btn btn-buy" type="button" onclick="openCalendly()">Book Now</button>
+                </div>
+            </div>
+                </div>
+
+                <div style="text-align:center;margin-top:40px;">
+                    <button class="btn btn-donate">
+                        <i class="fas fa-heart"></i> Donate
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Calendly badge + popup setup -->
+    <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+    <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+    <script type="text/javascript">
+        function openCalendly() {
+            Calendly.initPopupWidget({
+                url: 'https://calendly.com/brandonbourn72/30min?primary_color=d4a373'
+            });
+        }
+
+        // ===== CATEGORY FILTERING =====
+        function filterByCategory(category) {
+            const products = document.querySelectorAll('.product');
+            const buttons = document.querySelectorAll('.category-btn');
+            
+            // Update active button
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Filter products
+            products.forEach(product => {
+                if (category === 'all') {
+                    product.classList.remove('hidden');
+                } else if (product.dataset.category === category) {
+                    product.classList.remove('hidden');
+                } else {
+                    product.classList.add('hidden');
+                }
+            });
+        }
+
+        function addToCart(productName, price) {
+            alert(`Added "${productName}" ($${price}) to cart!`);
+        }
+
+        // Optionally initialize the badge widget for persistent booking access
+        window.onload = function() {
+            Calendly.initBadgeWidget({
+                url: 'https://calendly.com/brandonbourn72/30min?primary_color=d4a373',
+                text: 'Book Now',
+                color: '#d4a373',
+                textColor: '#000000',
+                branding: true
+            });
+        };
+
+        // ===== AUTHENTICATION FUNCTIONS =====
+        let users = JSON.parse(localStorage.getItem('users')) || {};
+        let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+        function openLoginModal() {
+            document.getElementById('loginModal').classList.add('active');
+        }
+
+        function closeLoginModal() {
+            document.getElementById('loginModal').classList.remove('active');
+            document.getElementById('loginForm').reset();
+        }
+
+        function openSignupModal() {
+            document.getElementById('signupModal').classList.add('active');
+        }
+
+        function closeSignupModal() {
+            document.getElementById('signupModal').classList.remove('active');
+            document.getElementById('signupForm').reset();
+        }
+
+        function switchToSignup() {
+            closeLoginModal();
+            openSignupModal();
+        }
+
+        function switchToLogin() {
+            closeSignupModal();
+            openLoginModal();
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            if (users[email] && users[email].password === password) {
+                currentUser = users[email];
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                closeLoginModal();
+                updateUI();
+            } else {
+                alert('Invalid email or password');
+            }
+        }
+
+        function handleSignup(e) {
+            e.preventDefault();
+            const name = document.getElementById('signupName').value;
+            const username = document.getElementById('signupUsername').value;
+            const email = document.getElementById('signupEmail').value;
+            const bio = document.getElementById('signupBio').value;
+            const password = document.getElementById('signupPassword').value;
+
+            if (users[email]) {
+                alert('Account with this email already exists');
+                return;
+            }
+
+            const newUser = {
+                id: Date.now(),
+                name,
+                username,
+                email,
+                bio,
+                password,
+                followers: [],
+                following: [],
+                socialAccounts: {},
+                websites: [],
+                profilePicture: null,
+                joinedDate: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
+            };
+
+            users[email] = newUser;
+            localStorage.setItem('users', JSON.stringify(users));
+            currentUser = newUser;
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            closeSignupModal();
+            updateUI();
+        }
+
+        function logout() {
+            currentUser = null;
+            localStorage.setItem('currentUser', JSON.stringify(null));
+            updateUI();
+        }
+
+        function updateUI() {
+            const userDisplay = document.getElementById('userDisplay');
+            const authButtons = document.getElementById('authButtons');
+            const logoutBtn = document.getElementById('logoutBtn');
+
+            if (currentUser) {
+                userDisplay.style.display = 'block';
+                authButtons.style.display = 'none';
+                logoutBtn.style.display = 'block';
+                document.getElementById('currentUser').textContent = currentUser.name;
+            } else {
+                userDisplay.style.display = 'none';
+                authButtons.style.display = 'flex';
+                logoutBtn.style.display = 'none';
+            }
+        }
+
+        function socialLogin(platform) {
+            const email = prompt(`Enter your ${platform} username/email:`);
+            if (!email) return;
+
+            // Look for user with this social account
+            for (let userEmail in users) {
+                if (users[userEmail].socialAccounts && 
+                    users[userEmail].socialAccounts[platform] &&
+                    users[userEmail].socialAccounts[platform].username === email) {
+                    currentUser = users[userEmail];
+                    localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                    closeLoginModal();
+                    updateUI();
+                    return;
+                }
+            }
+
+            alert(`No account found with this ${platform} username. Please create an account first.`);
+        }
+
+        // Close modals when clicking outside
+        window.onclick = function(event) {
+            const loginModal = document.getElementById('loginModal');
+            const signupModal = document.getElementById('signupModal');
+            if (event.target == loginModal) {
+                closeLoginModal();
+            }
+            if (event.target == signupModal) {
+                closeSignupModal();
+            }
+        }
+
+        // Initialize UI on page load
+        updateUI();
+    </script>
+</body>
+</html>

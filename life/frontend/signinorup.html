@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In / Sign Up - Life</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #d4a373 0%, #8b6f47 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px 20px;
+            border-bottom: 1px solid rgba(212, 163, 115, 0.3);
+        }
+
+        header nav {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .header-logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #d4a373;
+            text-decoration: none;
+        }
+
+        .auth-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .auth-box {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 450px;
+            overflow: hidden;
+        }
+
+        .auth-header {
+            background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+            padding: 30px 20px;
+            text-align: center;
+            color: white;
+        }
+
+        .auth-header h1 {
+            font-size: 28px;
+            margin: 0 0 10px 0;
+            color: #d4a373;
+        }
+
+        .auth-header p {
+            font-size: 14px;
+            color: #ccc;
+            margin: 0;
+        }
+
+        .auth-form {
+            padding: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: #333;
+            font-size: 13px;
+            margin-bottom: 6px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #d4a373;
+            box-shadow: 0 0 0 3px rgba(212, 163, 115, 0.1);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #d4a373 0%, #8b6f47 100%);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 15px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 163, 115, 0.4);
+        }
+
+        .toggle-text {
+            text-align: center;
+            font-size: 13px;
+            color: #666;
+        }
+
+        .toggle-link {
+            color: #d4a373;
+            cursor: pointer;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .toggle-link:hover {
+            color: #8b6f47;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin: 20px 0;
+            color: #999;
+            font-size: 12px;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #ddd;
+        }
+
+        .social-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .social-btn {
+            padding: 12px;
+            border: 2px solid #ddd;
+            background: white;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 12px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: #333;
+        }
+
+        .social-btn:hover {
+            border-color: #d4a373;
+            color: #d4a373;
+        }
+
+        .hidden-form {
+            display: none;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: auto;
+            cursor: pointer;
+        }
+
+        @media (max-width: 600px) {
+            .auth-box {
+                max-width: 100%;
+            }
+
+            .auth-form {
+                padding: 20px;
+            }
+
+            .social-buttons {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html" class="header-logo"><i class="fas fa-leaf"></i> Life</a>
+        </nav>
+    </header>
+
+    <div class="auth-container">
+        <div class="auth-box">
+            <div class="auth-header">
+                <h1>Welcome Back</h1>
+                <p>Connect, grow, and share experiences with Life</p>
+            </div>
+
+            <!-- Login Form -->
+            <div class="auth-form" id="loginForm">
+                <form onsubmit="handleLogin(event)">
+                    <div class="form-group">
+                        <label for="loginEmail">Email Address</label>
+                        <input type="email" id="loginEmail" required placeholder="you@example.com" onchange="checkFacialAvailability()">
+                    </div>
+
+                    <!-- Facial Recognition Option (Hidden by default) -->
+                    <div id="facialLoginOption" style="display:none; margin-bottom:18px;">
+                        <button type="button" class="submit-btn" style="width:100%; background: linear-gradient(135deg, #00b4d8 0%, #0096c7 100%);" onclick="useFacialLogin(event)">
+                            <i class="fas fa-face-smile"></i> Sign In With Face
+                        </button>
+                        <div style="text-align:center; margin:12px 0;">
+                            <span style="color:#999; font-size:12px;">or</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="loginPassword">Password</label>
+                        <input type="password" id="loginPassword" required placeholder="••••••••">
+                    </div>
+                    <button type="submit" class="submit-btn">Sign In</button>
+                    <div class="toggle-text">
+                        Don't have an account? <span class="toggle-link" onclick="switchToSignup()">Create one</span>
+                    </div>
+                </form>
+
+                <div class="divider">or</div>
+
+                <div class="social-buttons">
+                    <button type="button" class="social-btn" onclick="socialLogin('google')">
+                        <i class="fab fa-google"></i> Google
+                    </button>
+                    <button type="button" class="social-btn" onclick="socialLogin('github')">
+                        <i class="fab fa-github"></i> GitHub
+                    </button>
+                </div>
+
+                <!-- Facial Recognition Modal -->
+                <div id="facialLoginModal" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.8); z-index:2000;">
+                    <div style="background:white; max-width:500px; margin:60px auto; padding:30px; border-radius:12px; text-align:center;">
+                        <h2 style="margin-bottom:10px;">Facial Recognition Login</h2>
+                        <p style="color:#666; margin-bottom:20px; font-size:14px;">Position your face in the camera to login</p>
+                        
+                        <video id="facialLoginVideo" style="width:100%; height:auto; background:#000; border-radius:8px; margin-bottom:15px;"></video>
+                        <canvas id="facialLoginCanvas" style="width:100%; height:auto; border-radius:8px; margin-bottom:20px;"></canvas>
+
+                        <div id="facialLoginStatus" style="padding:12px; border-radius:6px; margin-bottom:20px; display:none; font-size:14px;"></div>
+
+                        <div style="display:flex; gap:10px; justify-content:center;">
+                            <button type="button" class="social-btn" style="flex:1; background:#999;" onclick="closeFacialLoginModal()">Cancel</button>
+                            <button type="button" class="submit-btn" style="flex:1;" id="facialLoginBtn" onclick="verifyFacialLogin()">Verify Face</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Signup Form -->
+            <div class="auth-form hidden-form" id="signupForm">
+                <form onsubmit="handleSignup(event)">
+                    <div class="form-group">
+                        <label for="signupName">Full Name</label>
+                        <input type="text" id="signupName" required placeholder="John Doe">
+                    </div>
+                    <div class="form-group">
+                        <label for="signupEmail">Email Address</label>
+                        <input type="email" id="signupEmail" required placeholder="you@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="signupPassword">Password</label>
+                        <input type="password" id="signupPassword" required placeholder="••••••••">
+                    </div>
+                    <div class="form-group">
+                        <label for="signupConfirm">Confirm Password</label>
+                        <input type="password" id="signupConfirm" required placeholder="••••••••">
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="terms" required>
+                        <label for="terms" style="margin: 0;">I agree to the Terms of Service and Privacy Policy</label>
+                    </div>
+                    <button type="submit" class="submit-btn">Create Account</button>
+                    <div class="toggle-text">
+                        Already have an account? <span class="toggle-link" onclick="switchToLogin()">Sign in</span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+        function handleLogin(event) {
+            event.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const name = email.split('@')[0];
+            
+            localStorage.setItem('userId', 'user_' + Date.now());
+            localStorage.setItem('userName', name);
+            localStorage.setItem('userEmail', email);
+            
+            App.addNotification(`Welcome back, ${name}!`, 'success');
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 1500);
+        }
+
+        function handleSignup(event) {
+            event.preventDefault();
+            const name = document.getElementById('signupName').value;
+            const email = document.getElementById('signupEmail').value;
+            const password = document.getElementById('signupPassword').value;
+            const confirm = document.getElementById('signupConfirm').value;
+
+            if (password !== confirm) {
+                App.addNotification('Passwords do not match!', 'error');
+                return;
+            }
+
+            localStorage.setItem('userId', 'user_' + Date.now());
+            localStorage.setItem('userName', name);
+            localStorage.setItem('userEmail', email);
+            
+            App.addNotification(`Welcome to Life, ${name}!`, 'success');
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 1500);
+        }
+
+        function socialLogin(provider) {
+            App.addNotification(`Signing in with ${provider}...`, 'info');
+            setTimeout(() => {
+                localStorage.setItem('userId', 'user_' + Date.now());
+                localStorage.setItem('userName', 'User');
+                localStorage.setItem('userEmail', 'user@' + provider + '.com');
+                window.location.href = 'index.html';
+            }, 1500);
+        }
+
+        function switchToSignup() {
+            document.getElementById('loginForm').classList.add('hidden-form');
+            document.getElementById('signupForm').classList.remove('hidden-form');
+        }
+
+        function switchToLogin() {
+            document.getElementById('signupForm').classList.add('hidden-form');
+            document.getElementById('loginForm').classList.remove('hidden-form');
+        }
+
+        /**
+         * FACIAL RECOGNITION LOGIN
+         */
+
+        let facialLoginState = {
+            facialRec: null,
+            email: null
+        };
+
+        /**
+         * Check if facial recognition is available for email
+         */
+        async function checkFacialAvailability() {
+            const email = document.getElementById('loginEmail').value;
+            const facialOption = document.getElementById('facialLoginOption');
+
+            if (!email) {
+                facialOption.style.display = 'none';
+                return;
+            }
+
+            try {
+                // Initialize facial recognition first
+                if (!facialLoginState.facialRec) {
+                    facialLoginState.facialRec = await initFacialRecognition();
+                    if (!facialLoginState.facialRec) {
+                        facialOption.style.display = 'none';
+                        return;
+                    }
+                }
+
+                // Check if facial recognition is available
+                const isAvailable = await facialLoginState.facialRec.isFacialRecognitionAvailable(email);
+                facialOption.style.display = isAvailable ? 'block' : 'none';
+            } catch (err) {
+                console.error('Error checking facial availability:', err);
+                facialOption.style.display = 'none';
+            }
+        }
+
+        /**
+         * Use facial recognition for login
+         */
+        async function useFacialLogin(event) {
+            event.preventDefault();
+
+            const email = document.getElementById('loginEmail').value;
+            if (!email) {
+                alert('Please enter your email first');
+                return;
+            }
+
+            try {
+                // Initialize facial recognition if not done
+                if (!facialLoginState.facialRec) {
+                    facialLoginState.facialRec = await initFacialRecognition();
+                    if (!facialLoginState.facialRec) {
+                        alert('Facial recognition unavailable. Try password login.');
+                        return;
+                    }
+                }
+
+                facialLoginState.email = email;
+
+                // Show modal
+                document.getElementById('facialLoginModal').style.display = 'block';
+
+                // Start video stream
+                const success = await facialLoginState.facialRec.startVideoStream('facialLoginVideo');
+                if (!success) {
+                    alert('Camera access required');
+                    closeFacialLoginModal();
+                    return;
+                }
+
+                // Start detection loop
+                startFacialLoginDetectionLoop();
+            } catch (err) {
+                alert('Error: ' + err.message);
+            }
+        }
+
+        /**
+         * Start facial detection loop for login
+         */
+        function startFacialLoginDetectionLoop() {
+            const video = document.getElementById('facialLoginVideo');
+            const canvas = document.getElementById('facialLoginCanvas');
+            const statusDiv = document.getElementById('facialLoginStatus');
+
+            const detectLoop = async () => {
+                if (!facialLoginState.facialRec || 
+                    document.getElementById('facialLoginModal').style.display === 'none') {
+                    return;
+                }
+
+                try {
+                    const detection = await facialLoginState.facialRec.detectFaceInVideo('facialLoginVideo');
+                    
+                    if (detection.success) {
+                        facialLoginState.facialRec.drawFaceDetection(canvas, video, detection.detection);
+                        
+                        statusDiv.style.display = 'block';
+                        statusDiv.style.background = '#d4ffd4';
+                        statusDiv.style.color = '#008000';
+                        statusDiv.style.border = '1px solid #00cc00';
+                        statusDiv.innerHTML = `✓ Face detected (${(parseFloat(detection.detection.score) * 100).toFixed(1)}%)`;
+                    } else {
+                        statusDiv.style.display = 'block';
+                        statusDiv.style.background = '#ffd4d4';
+                        statusDiv.style.color = '#cc0000';
+                        statusDiv.style.border = '1px solid #ff0000';
+                        statusDiv.innerHTML = `⚠ ${detection.error}`;
+                    }
+                } catch (err) {
+                    console.error('Detection error:', err);
+                }
+
+                requestAnimationFrame(detectLoop);
+            };
+
+            detectLoop();
+        }
+
+        /**
+         * Verify facial login
+         */
+        async function verifyFacialLogin() {
+            try {
+                const btn = document.getElementById('facialLoginBtn');
+                btn.disabled = true;
+                btn.textContent = 'Verifying...';
+
+                const result = await facialLoginState.facialRec.verifyFacialLogin(
+                    facialLoginState.email,
+                    'facialLoginVideo'
+                );
+
+                if (result.success && result.token) {
+                    // Store auth token
+                    localStorage.setItem('authToken', result.token);
+                    localStorage.setItem('userId', result.user.id);
+                    localStorage.setItem('userEmail', result.user.email);
+                    location.href = 'index.html';
+                } else {
+                    alert('Facial authentication failed: ' + (result.message || 'Face does not match'));
+                    btn.disabled = false;
+                    btn.textContent = 'Verify Face';
+                }
+            } catch (err) {
+                alert('Error: ' + err.message);
+                document.getElementById('facialLoginBtn').disabled = false;
+                document.getElementById('facialLoginBtn').textContent = 'Verify Face';
+            }
+        }
+
+        /**
+         * Close facial login modal
+         */
+        function closeFacialLoginModal() {
+            document.getElementById('facialLoginModal').style.display = 'none';
+            if (facialLoginState.facialRec) {
+                facialLoginState.facialRec.stopVideoStream('facialLoginVideo');
+            }
+        }
+
+        // Close modal when clicking outside
+        document.addEventListener('click', (e) => {
+            const modal = document.getElementById('facialLoginModal');
+            if (modal && e.target === modal) {
+                closeFacialLoginModal();
+            }
+        });
+    </script>
+    <script src="facial-recognition.js"></script>
+    <!-- Face-API.js library -->
+    <script async src="https://cdn.jsdelivr.net/npm/@vladmandic/face-api@1.7.14/dist/face-api.js"></script>
+</body>
+</html>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #d4a373 0%, #8b6f47 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        header {
+            background: rgb(0, 0, 0);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 15px 40px;
+            margin-bottom: 20px;           /* reduced spacing */
+            border-radius: 10px;
+        }
+
+        header nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #d4a373;
+        }
+
+        header nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        header nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        header nav a:hover {
+            color: #d4a373;
+        }
+
+        .donate-btn {
+            background: #fff;
+            color: #d4a373;
+            border: 2px solid #d4a373;
+            border-radius: 20px;
+            padding: 8px 16px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        .donate-btn:hover {
+            background: #fdfaf5;
+            transform: scale(1.05);
+        }
+
+        .main-content {
+            display: flex;
+            justify-content: center;
+            flex: 1;
+        }
+
+        .container {
+            display: flex;
+            width: 100%;
+            max-width: 900px;
+            background: rgb(255, 255, 255);
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .form-section {
+            flex: 1;
+            padding: 60px 40px;
+            display: none;
+        }
+
+        .form-section.active {
+            display: block;
+        }
+
+        .form-section h2 {
+            font-size: 28px;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #d4a373;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #d4a373 0%, #8b6f47 100%);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            transform: scale(1.02);
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 30px 0;
+            color: #999;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background-color: #ddd;
+        }
+
+        .divider span {
+            padding: 0 10px;
+            font-size: 14px;
+        }
+
+        .social-login {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .social-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            background: white;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s;
+            text-decoration: none;
+            color: #333;
+        }
+
+        .social-btn:hover {
+            border-color: #d4a373;
+            background: #fff9f5;
+            transform: translateY(-2px);
+        }
+
+        .social-btn i {
+            margin-right: 8px;
+            font-size: 16px;
+        }
+
+        .social-btn.google {
+            color: #db4437;
+        }
+
+        .social-btn.google:hover {
+            background: #fff5f4;
+        }
+
+        .social-btn.twitter {
+            color: #1da1f2;
+        }
+
+        .social-btn.twitter:hover {
+            background: #f1f9ff;
+        }
+
+        .social-btn.instagram {
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            color: white;
+            border: 2px solid transparent;
+        }
+
+        .social-btn.instagram:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        .social-btn.snapchat {
+            color: #fffc00;
+            background: #fff9e6;
+        }
+
+        .social-btn.snapchat:hover {
+            background: #fffef0;
+            border-color: #fffc00;
+        }
+
+        .toggle-text {
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .toggle-text button {
+            background: none;
+            border: none;
+            color: #d4a373;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .info-section {
+            flex: 1;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .info-section h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .info-section p {
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        @media (max-width: 768px) {
+            header nav ul {
+                gap: 15px;
+            }
+
+            .container {
+                flex-direction: column;
+            }
+
+            .info-section {
+                padding: 40px;
+            }
+
+            .form-section {
+                padding: 40px;
+            }
+
+            .social-login {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">Life</div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="https://donate.stripe.com/7sIbMv2RY0ql02Q001" class="donate-btn"><i class="fas fa-heart"></i> Donate</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="main-content">
+        <div class="container">
+            <div class="form-section active" id="signin">
+                <h2>Sign In</h2>
+                
+                <div class="social-login">
+                    <button class="social-btn google" onclick="socialLogin('google')">
+                        <i class="fab fa-google"></i> Google
+                    </button>
+                    <button class="social-btn twitter" onclick="socialLogin('twitter')">
+                        <i class="fab fa-twitter"></i> Twitter
+                    </button>
+                    <button class="social-btn instagram" onclick="socialLogin('instagram')">
+                        <i class="fab fa-instagram"></i> Instagram
+                    </button>
+                    <button class="social-btn snapchat" onclick="socialLogin('snapchat')">
+                        <i class="fab fa-snapchat"></i> Snapchat
+                    </button>
+                </div>
+
+                <div class="divider">
+                    <span>Or continue with email</span>
+                </div>
+
+                <form>
+                    <div class="form-group">
+                        <label for="signin-email">Email</label>
+                        <input type="email" id="signin-email" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signin-password">Password</label>
+                        <input type="password" id="signin-password" placeholder="Enter your password" required>
+                    </div>
+                    <button type="submit" class="btn">Sign In</button>
+                </form>
+                <div class="toggle-text">
+                    Don't have an account? <button type="button" onclick="toggleForms()">Sign Up</button>
+                </div>
+            </div>
+
+            <div class="form-section" id="signup">
+                <h2>Sign Up</h2>
+                
+                <div class="social-login">
+                    <button class="social-btn google" onclick="socialLogin('google')">
+                        <i class="fab fa-google"></i> Google
+                    </button>
+                    <button class="social-btn twitter" onclick="socialLogin('twitter')">
+                        <i class="fab fa-twitter"></i> Twitter
+                    </button>
+                    <button class="social-btn instagram" onclick="socialLogin('instagram')">
+                        <i class="fab fa-instagram"></i> Instagram
+                    </button>
+                    <button class="social-btn snapchat" onclick="socialLogin('snapchat')">
+                        <i class="fab fa-snapchat"></i> Snapchat
+                    </button>
+                </div>
+
+                <div class="divider">
+                    <span>Or sign up with email</span>
+                </div>
+
+                <form>
+                    <div class="form-group">
+                        <label for="signup-name">Full Name</label>
+                        <input type="text" id="signup-name" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signup-email">Email</label>
+                        <input type="email" id="signup-email" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signup-password">Password</label>
+                        <input type="password" id="signup-password" placeholder="Enter your password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signup-confirm">Confirm Password</label>
+                        <input type="password" id="signup-confirm" placeholder="Confirm your password" required>
+                    </div>
+                    <button type="submit" class="btn">Sign Up</button>
+                </form>
+                <div class="toggle-text">
+                    Already have an account? <button type="button" onclick="toggleForms()">Sign In</button>
+                </div>
+            </div>
+
+            <div class="info-section">
+                <h3>Welcome Back!</h3>
+                <p>Sign in to access your personalized dashboard and manage your life goals.</p>
+                <p>Track your progress, set new objectives, and achieve your dreams with our platform.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleForms() {
+            document.getElementById('signin').classList.toggle('active');
+            document.getElementById('signup').classList.toggle('active');
+        }
+
+        function socialLogin(platform) {
+            alert(`${platform.charAt(0).toUpperCase() + platform.slice(1)} login clicked!`);
+            // Replace with actual OAuth implementation
+        }
+    </script>
+</body>
+</html>
